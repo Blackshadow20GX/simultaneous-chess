@@ -53,10 +53,25 @@ public class Game : MonoBehaviour
         
     }
 
-    private void SetPosition(GameObject obj)
+    public void SetPosition(GameObject obj)
     {
         Chessman chessman = obj.GetComponent<Chessman>();
         positions[chessman.GetXBoard(), chessman.GetYBoard()] = obj;
+    }
+
+    public void SetPositionEmpty(int x, int y)
+    {
+        positions[x, y] = null;
+    }
+
+    public GameObject GetPosition(int x, int y)
+    {
+        return positions[x, y];
+    }
+
+    public bool PositionOnBoard(int x, int y)
+    {
+        return !(x < 0 || y < 0 || x >= positions.GetLength(0) || y >= positions.GetLength(1));
     }
 
     private GameObject Create(string name, int x, int y)

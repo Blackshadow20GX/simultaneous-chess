@@ -45,7 +45,7 @@ public class Chessman : MonoBehaviour
         this.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
-    private void SetCoords()
+    public void SetCoords()
     {
         float x = xBoard;
         float y = yBoard;
