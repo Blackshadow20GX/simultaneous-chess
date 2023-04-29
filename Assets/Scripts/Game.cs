@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -48,9 +50,25 @@ public class Game : MonoBehaviour
         {
             SetPosition(playerWhite[i]);
             SetPosition(playerBlack[i]);
+        } 
+    }
+    public void Update()
+    {
+        if (IsGameOver() && Input.GetMouseButtonDown(0))
+        {
+            gameOver = false;
+            SceneManager.LoadScene("Game");
         }
+    }
 
-        
+    public void Winner(PLAYER winner)
+    {
+        gameOver = true;
+        Text winnerText = GameObject.FindGameObjectWithTag("WinnerText").GetComponent<Text>();
+        Text restartText = GameObject.FindGameObjectWithTag("RestartText").GetComponent<Text>();
+        winnerText.text = winner + " wins!";
+        restartText.enabled = true;
+
     }
 
     public void SetPosition(GameObject obj)
@@ -72,6 +90,21 @@ public class Game : MonoBehaviour
     public bool PositionOnBoard(int x, int y)
     {
         return !(x < 0 || y < 0 || x >= positions.GetLength(0) || y >= positions.GetLength(1));
+    }
+
+    public PLAYER GetCurrentPlayer()
+    {
+        return currentPlayer;
+    }
+
+    public bool IsGameOver()
+    {
+        return gameOver;
+    }
+
+    public void NextTurn()
+    {
+        currentPlayer = currentPlayer == PLAYER.WHITE ? PLAYER.BLACK : PLAYER.WHITE;
     }
 
     private GameObject Create(string name, int x, int y)
