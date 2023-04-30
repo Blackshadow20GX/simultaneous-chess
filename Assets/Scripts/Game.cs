@@ -22,6 +22,10 @@ public class Game : MonoBehaviour
 
     private PLAYER currentPlayer = PLAYER.WHITE;
     private bool gameOver = false;
+
+    // all of this can be refactored too to not be stupid, so Player has pieces,
+    // and the white player inherently gets white pieces, etc.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +109,8 @@ public class Game : MonoBehaviour
     public void NextTurn()
     {
         currentPlayer = currentPlayer == PLAYER.WHITE ? PLAYER.BLACK : PLAYER.WHITE;
+        // calculate legal moves, then either swap to next turn or do whatever chess rules require.
+        // iterate through each remaining piece for current player.
     }
 
     private GameObject Create(string name, int x, int y)
